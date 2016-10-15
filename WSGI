@@ -1,0 +1,29 @@
+from wsgiref.simple_server import make_server #Импортирует функцию make_server, которая может создать простой веб-сервер при передаче приложения
+
+input1 = '<div class='top'>Middleware TOP</div>\n'#строки, которые необходимо вставить в тело страницы
+input2 = '\n<div class='botton'>Middleware BOTTOM</div>'
+
+#в этом классе страница проверяется на наличие тегов <body> и </body>. затем с помощью метода split, возвращающего список строк,
+записываем в переменные first, second строки до тега <body> и после, так он (тег) является параметром этого метода (разделителем между элементами
+списка). после этого изменяем страницу, добавив первую строку (input1). Аналогично со вторым тегом
+class Midwr(object):
+    def __init__(self, application):
+       self.application = application
+    def __call__(self, environ, response):  
+        page = self.application(environ, response)[0]
+        if (html.find('<body>') > 0 and html.find('</body>') > 0):
+            first, second = html.split('<body>')
+            html = first + '<body>\n' + input1 + second
+            first, second = html.split('</body>')
+            html = first + input2 + '\n</body>\n'+ second
+        return html
+        
+def application(environ, response)
+    response('200 OK', [('Content-Type', 'text/html')])
+    resp = environ['PATH_INFO']
+    if resp == '/index.html' or resp == '/':
+    new = open(resp, 'r')
+    return [new.read()]
+
+#запустить сервер
+make_server(Midwr(application), host='localhost', port=8000).serve_forever()    
