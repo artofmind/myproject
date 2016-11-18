@@ -1,8 +1,9 @@
 from wsgiref.simple_server import make_server #Импортирует функцию make_server, которая может создать простой веб-сервер при передаче приложения
-from pyramid.response import FileResponse
+from pyramid.response import Response
 from pyramid.config import Configurator
+from jinja2 import Environment, FileSystemLoader,Template
 
-environment=Environment(loader=FileSystemLoader('Templates'))
+environment=Environment(loader=FileSystemLoader('HTML'))
 il = '<a href="/index.html">Index</a>'
 al = '<a href="/about/aboutme.html">About me</a>'
     
@@ -15,9 +16,9 @@ def AboutMe(request):
 if __name__ == "__main__":
     config = Configurator()
     config.add_view(Index, route_name="index")
-    config.add_route("/index.html", "index")
+    config.add_route("index", "/index.html")
     config.add_view(AboutMe, route_name="about_me")
     config.add_route("about_me", "/about/aboutme.html")
     
 #запустить сервер
-make_server(config.make_wsgi_app(), host='localhost', port=8000).serve_forever()   
+    make_server(host='localhost', port=8000, config.make_wsgi_app()).serve_forever()   
