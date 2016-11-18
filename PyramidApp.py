@@ -10,7 +10,7 @@ def Index(request):
     return Response(environment.get_template('/index.html').render(link=al, title='Index', text='<h1>Index</h1>'))
     
 def AboutMe(request):    
-    return Response(environment.get_template('/about/aboutme.html').render(link=il, title='AboutMe' text='<h1>Aboutme</h1>'))
+    return Response(environment.get_template('/about/aboutme.html').render(link=il, title='AboutMe', text='<h1>Aboutme</h1>'))
     
 if __name__ == "__main__":
     config = Configurator()
